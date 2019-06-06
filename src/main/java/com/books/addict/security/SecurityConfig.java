@@ -1,7 +1,7 @@
 package com.books.addict.security;
 
 import com.books.addict.model.Admin;
-import com.books.addict.service.AdminService;
+import com.books.addict.service.readService.AdminServiceR;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,14 +25,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    private AdminService staffService;
+    private AdminServiceR staffService;
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "logorreg").permitAll()
+                .antMatchers("/", "/logorreg", "/readerPage/loginOthers").permitAll()
+                .antMatchers("/readerPage").permitAll()
+                .antMatchers("/adminPage/register").permitAll()
+                .antMatchers("/writerPage/loginAuth").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

@@ -11,7 +11,7 @@ import java.util.Objects;
 @Table(name="feedback")
 public class Feedback {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "idfeedback")
     private Integer id;
 

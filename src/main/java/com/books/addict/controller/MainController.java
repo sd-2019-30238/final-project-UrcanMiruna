@@ -1,8 +1,7 @@
 package com.books.addict.controller;
 
 
-import com.books.addict.model.Admin;
-import com.books.addict.service.AdminService;
+import com.books.addict.service.readService.AdminServiceR;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
     @Autowired
-    private AdminService adminService;
+    private AdminServiceR adminServiceR;
     @GetMapping("/")
     public String root(){
         return "/logorreg";
@@ -20,5 +19,12 @@ public class MainController {
     public String login(){
         return "/login";
     }
-
+    @GetMapping("/loginOthers")
+    public String logg2(){
+        return "/loginOthers";
+    }
+    @GetMapping("/logorreg")
+    public String log(){
+        return "/logorreg";
+    }
 }

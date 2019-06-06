@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "order")
+@Table(name = "deal")
 public class Order implements Subject{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="idorder")
     private Integer idOrder;
 
@@ -32,14 +32,15 @@ public class Order implements Subject{
     @Column(name="password")
     private String password;
 
-    public Order(@NotNull Integer idBook, @NotNull String reader, @NotNull String state, @NotNull String password) {
+    public Order(@NotNull Integer idBook, @NotNull String reader, @NotNull String password) {
         this.idBook = idBook;
         this.reader = reader;
-        this.state = state;
+        this.state="delivering";
         this.password = password;
     }
 
     public Order() {
+        this.state="delivering";
     }
 
     public Integer getIdOrder() {
@@ -127,6 +128,7 @@ public class Order implements Subject{
     @Override
     public void notifyObserbers() {
         for(Observer observer:observers){
+            System.out.println("obs");
             observer.update(this);
         }
     }

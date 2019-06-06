@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Reader page</title>
+    <style>
+table, th, td{
+    border: 1px solid black;
+    border-collapse:collapse;
+}
+table,th,td{
+    padding : 5px;
+    text-align: left;
+}
+</style>
+</head>
+<table style="width:75%">
+    <tr>
+        <th>Id book</th>
+        <th>Name</th>
+        <th>Description</th>
+        <td>Price</td>
+        <td>Writer</td>
+        <td>Rate</td>
+        <th>Reviews</th>
+        <th>Add book to library</th>
+    </tr>
+    <tbody>
+    <tr th:if="${books.empty}" >
+        <td colspan="2"> No products available</td>
+    </tr>
+    <tr th:each="book: ${books}">
+        <td><span th:text="${book.id}">Id</span></td>
+        <td><span th:text="${book.name}">Name</span></td>
+        <td><span th:text="${book.descriprion}">Description</span></td>
+        <td><span th:text="${book.price}">Price</span></td>
+        <td><span th:text="${book.writer}">Writer</span></td>
+        <td><span th:text="${book.rate}">Rate</span>
+        </td>
+        <td><form th:action="@{'/readerPage/getFeedback/'+ ${book.id}}" method="post">
+        <input type="submit" value="See feedback"></form></td>
+        <td><form th:action="@{'/readerPage/addBook/'+ ${book.id}}" method="post">
+            <input type="submit" value=" Add"></form></td>
+    </tr>
+    </tbody>
+</table>
+<p></p>
+<p>
+</p>
+<table style="width:75%">
+    <tr>
+        <th>Id book</th>
+        <th>Name</th>
+        <th>Description</th>
+        <td>Price</td>
+        <td>Writer</td>
+        <td>Delete</td>
+        <td>Review</td>
+    </tr>
+    <tbody>
+    <tr th:if="${bookR.empty}" >
+        <td colspan="2"> No products available</td>
+    </tr>
+    <tr th:each="book: ${bookR}">
+        <td><span th:text="${book.id}">Id</span></td>
+        <td><span th:text="${book.name}">Name</span></td>
+        <td><span th:text="${book.descriprion}">Description</span></td>
+        <td><span th:text="${book.price}">Price</span></td>
+        <td><span th:text="${book.writer}">Writer</span></td>
+        </td>
+        <td><form th:action="@{'/readerPage/delete/'+ ${book.id}}" method="post">
+            <input type="submit" value="Delete"></form></td>
+        <td><form th:action="@{/readerPage/review}" method="get">
+            <input type="submit" value="Review"></form></td>
+
+    </tr>
+    </tbody>
+</table>
+<!--type filter-->
+<form th:action="@{/readerPage/mystery}" method="get">
+    <input type="submit" value="Mystery books"></form>
+<form th:action="@{/readerPage/adventure}" method="get">
+    <input type="submit" value="Adventure books"></form>
+<form th:action="@{/readerPage/fiction}" method="get">
+    <input type="submit" value="Fiction book"></form>
+<form th:action="@{/readerPage/history}" method="get">
+    <input type="submit" value="History book"></form>
+<form th:action="@{/readerPage/comic}" method="get">
+    <input type="submit" value="Comic book"></form>
+<form th:action="@{/readerPage/poetry}" method="get">
+    <input type="submit" value="Poetry book"></form>
+<!--Price filter-->
+<form th:action="@{/readerPage/ascending}" method="get">
+    <input type="submit" value="Ascendent price"></form>
+<form th:action="@{/readerPage/rate}" method="get">
+    <input type="submit" value="Rate book"></form>
+<!--author filter-->
+<form th:action="@{/readerPage/author}" method="get">
+    <input type="submit" value="Authors"></form>
+
+<form th:action="@{/}" method="get">
+    <input type="submit" value="Back"></form>
+</html>

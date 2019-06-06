@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Administrator page</title>
+    <style>
+table, th, td{
+    border: 1px solid black;
+    border-collapse:collapse;
+}
+table,th,td{
+    padding : 5px;
+    text-align: left;
+}
+</style>
 </head>
-<body>
+<table style="width:50%">
+    <tr>
+        <th>Id</th>
+        <th>Id Book</th>
+        <th>Username reader</th>
+        <th>Order state</th>
+        <th>Validate order</th>
+    </tr>
+    <tbody>
+    <tr th:if="${orders.empty}" >
+        <td colspan="2"> No products available</td>
+    </tr>
+    <tr th:each="order: ${orders}">
+        <td><span th:text="${order.idOrder}">Id</span></td>
+        <td><span th:text="${order.idBook}">Id Book</span></td>
+        <td><span th:text="${order.reader}">Username reader</span></td>
+        <td><span th:text="${order.state}">stateOrder</span></td>
+        <td><form th:action="@{'/adminPage/validate/'+ ${order.idOrder}}" method="post">
+            <input type="submit" value="Validate"></form></td>
 
-</body>
+    </tr>
+    </tbody>
+</table>
+
+<form th:action="@{/}" method="get">
+    <input type="submit" value="Back"></form>
 </html>
