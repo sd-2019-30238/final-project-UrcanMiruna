@@ -21,4 +21,9 @@ public class FeedbackServiceWImpl implements FeedbackServiceW {
     public void addFeedback(Feedback feedback) {
         feedBackRepository.save(feedback);
     }
+
+    @Override
+    public void deleteFeedback(Feedback feedback) {
+        feedBackRepository.delete(feedback);
+    }
 }

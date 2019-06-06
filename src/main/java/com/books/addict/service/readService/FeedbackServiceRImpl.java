@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -41,5 +42,10 @@ public class FeedbackServiceRImpl implements FeedbackServiceR {
             descroptions.add(feedback.getDescription());
         }
         return descroptions;
+    }
+
+    @Override
+    public Optional<Feedback> getFeedById(Integer id) {
+        return feedBackRepository.findById(id);
     }
 }

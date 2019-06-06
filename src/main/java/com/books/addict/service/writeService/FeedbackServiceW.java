@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface FeedbackServiceW {
     void addFeedback(Feedback feedback);
-
+    void deleteFeedback(Feedback feedback);
 }

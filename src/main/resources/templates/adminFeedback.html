@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Reviews page</title>
+</head>
+<table style="...">
+    <tr>
+        <Td>Reviews for book</Td>
+        <td>Id</td>
+        <td>Rate</td>
+        <td>Reader</td>
+        <td>Delete feedback</td>
+    </tr>
+    <tbody>
+    <tr th:if="${feeds.empty}" >
+        <td colspan="2"> No products available</td>
+    </tr>
+    <tr th:each="feed: ${feeds}">
+        <td><span th:text="${feed.id}">Id</span></td>
+        <td><span th:text="${feed.description}">Reviews for book</span></td>
+        <td><span th:text="${feed.rate}">Rate</span></td>
+        <td><span th:text="${feed.reader}">Reader</span></td>
+        <td><form th:action="@{'/adminPage/feedback/'+ ${feed.id}}" method="post">
+        <input type="submit" value="Delete"></form></td>
+    </tr>
+    </tbody>
+</table>
+
+<form th:action="@{/adminPage/all}" method="get">
+    <input type="submit" value="Back"></form>
+</html>

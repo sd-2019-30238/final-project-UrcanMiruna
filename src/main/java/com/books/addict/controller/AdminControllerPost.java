@@ -3,10 +3,8 @@ package com.books.addict.controller;
 
 import com.books.addict.model.*;
 import com.books.addict.service.readService.*;
-import com.books.addict.service.writeService.AdminServiceW;
-import com.books.addict.service.writeService.AuthorServiceW;
-import com.books.addict.service.writeService.OrderServiceW;
-import com.books.addict.service.writeService.ReaderServiceW;
+import com.books.addict.service.writeService.*;
+import net.bytebuddy.asm.Advice;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.ServletWebRequest;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -51,6 +50,11 @@ public class AdminControllerPost {
 
     @Autowired
     private AuthorServiceR authorServiceR;
+
+    @Autowired
+    private FeedbackServiceR feedbackServiceR;
+    @Autowired
+    private FeedbackServiceW feedbackServiceW;
 
 
 
@@ -113,5 +117,19 @@ public class AdminControllerPost {
 
         }
         return "/logorreg";
+    }
+
+    @GetMapping("/feedback")
+    public String getFeedback(Model model){
+        model.addAttribute("feeds", feedbackServiceR.getAllFeedbacks());
+        return "/adminFeedback";
+    }
+
+    @PostMapping("/feedback/{id}")
+    public String getFeedback(@PathVariable("id")Integer id, Model model){
+        Feedback feedback=feedbackServiceR.getFeedById(id).get();
+        feedbackServiceW.deleteFeedback(feedback);
+        model.addAttribute("feeds", feedbackServiceR.getAllFeedbacks());
+        return "/adminFeedback";
     }
 }

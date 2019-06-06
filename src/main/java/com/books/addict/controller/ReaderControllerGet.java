@@ -130,7 +130,16 @@ public class ReaderControllerGet {
     public String addBook(@PathVariable("id")Integer id, Model model){
         Reader reader=readerServiceR.findByUsername(this.getCredentials().getUsername());
         Order order=new Order(id, reader.getUsername(), reader.getPassword());
-        orderServiceW.addorder(order);
+        List<Order> orderss = orderServiceR.getAllOrders();
+        int ok=0;
+        for(Order order1:orderss){
+            if(order1.getIdBook().equals(id)){
+                ok=1;
+            }
+        }
+        if(ok==0){
+            orderServiceW.addorder(order);
+        }
 
         model.addAttribute("books", bookServiceR.getBooksInfos());
         List<Order> orders=orderServiceR.getAllOrders();
